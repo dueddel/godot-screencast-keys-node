@@ -37,8 +37,6 @@ func add_key_event(key: InputEventKey) -> void:
 	else:
 		last_key_scancode_count = 1
 
-	print_debug(OS.get_scancode_string(key_scancode), " ", last_key_scancode_count, "x")
-
 	match(new_keys_appear):
 
 		# previously pressed keys rise up
@@ -64,18 +62,22 @@ func trim_from_top() -> void:
 
 
 func trim_from_bottom() -> void:
-	while max_lines_visible > 0 and pressed_keys.size() >= max_lines_visible:
+	while \
+		max_lines_visible > 0 and \
+		pressed_keys.size() >= max_lines_visible and \
+		not last_key_scancode_count > 1:
+
 		pressed_keys.remove(pressed_keys.size() - 1)
 
 
 func append_at_bottom(key_scancode: int) -> void:
-#	if last_key_scancode_count > 1:
-#		text = text.substr(0, text.find_last("\n"))
+	var scancode_string := OS.get_scancode_string(key_scancode)
 
-	pressed_keys.push_back(OS.get_scancode_string(key_scancode))
+	if last_key_scancode_count > 1:
+		pressed_keys.remove(pressed_keys.size() - 1)
+		scancode_string += " x%s" % last_key_scancode_count
 
-#	if last_key_scancode_count > 1:
-#		text += (" %sx" % last_key_scancode_count)
+	pressed_keys.push_back(scancode_string)
 
 
 func prepend_at_top(key_scancode: int) -> void:
