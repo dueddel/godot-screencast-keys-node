@@ -5,6 +5,7 @@ enum Appearance {AT_THE_TOP, AT_THE_BOTTOM}
 export(Appearance) var new_keys_appear: int setget _set_new_keys_appear
 
 
+var pressed_keys := PoolStringArray()
 var last_key_scancode: int
 var last_key_scancode_count: int
 
@@ -50,28 +51,34 @@ func add_key_event(key: InputEventKey) -> void:
 			trim_from_bottom()
 			prepend_at_top(key_scancode)
 
+	text = pressed_keys.join("\n")
+
 	# keep pressed key in mind
 	last_key_scancode = key_scancode
 
 
 func trim_from_top() -> void:
-	while max_lines_visible > 0 and get_line_count() >= max_lines_visible:
-		text = text.substr(text.find("\n") + 1)
+	pressed_keys.invert()
+	trim_from_bottom()
+	pressed_keys.invert()
 
 
 func trim_from_bottom() -> void:
-	while max_lines_visible > 0 and get_line_count() >= max_lines_visible:
-		text = text.substr(0, text.find_last("\n"))
+	while max_lines_visible > 0 and pressed_keys.size() >= max_lines_visible:
+		pressed_keys.remove(pressed_keys.size() - 1)
 
 
 func append_at_bottom(key_scancode: int) -> void:
 #	if last_key_scancode_count > 1:
 #		text = text.substr(0, text.find_last("\n"))
 
-	text += "\n" + OS.get_scancode_string(key_scancode)
+	pressed_keys.push_back(OS.get_scancode_string(key_scancode))
 
 #	if last_key_scancode_count > 1:
 #		text += (" %sx" % last_key_scancode_count)
 
+
 func prepend_at_top(key_scancode: int) -> void:
-	text = OS.get_scancode_string(key_scancode) + "\n" + text
+	pressed_keys.invert()
+	append_at_bottom(key_scancode)
+	pressed_keys.invert()
