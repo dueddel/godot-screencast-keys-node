@@ -5,6 +5,7 @@
 
 This plugin provides an easy to use screencast keys feature for your Godot project.
 
+![](screencast-keys-demo.gif)
 
 ## How?
 
