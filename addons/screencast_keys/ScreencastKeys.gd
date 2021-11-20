@@ -80,13 +80,13 @@ func trim_from_end() -> void:
 
 
 func append_at_end(key_scancode: int) -> void:
-	var scancode_string := OS.get_scancode_string(key_scancode)
+	var pressed_key := OS.get_scancode_string(key_scancode)
 
 	if last_key_scancode_count > 1:
 		pressed_keys.remove(pressed_keys.size() - 1)
-		scancode_string += " x%s" % last_key_scancode_count
+		pressed_key += " x%s" % last_key_scancode_count
 
-	pressed_keys.push_back(scancode_string)
+	pressed_keys.push_back(pressed_key)
 
 
 func prepend_at_start(key_scancode: int) -> void:
