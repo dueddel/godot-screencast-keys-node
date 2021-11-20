@@ -8,7 +8,22 @@ This plugin provides an easy to use screencast keys feature for your Godot proje
 
 ## How?
 
-Just hit the plus button to add a new child node to your scene and search for `ScreencastKeys`. Treat it like a usual `Label` node. Pressed keys will appear line-wise when running your game/app.
+Just hit the plus button to add a new child node to your scene and search for `ScreencastKeys`.
+
+![](screenshot-add-node.png)
+
+Pressed keys will appear lined up in a row or line-wisely stacked when running your game/app depending on how you set the `ScreencastKey`'s property for where new keys appear.
+
+![](screenshot-set-appearance.png)
+
+Other than that treat it like a usual `Label` node. ❤️
+
+
+## Pro tip
+
+After adding the `ScreencastKeys` node to your scene set the `max_lines_visible` property to some appropriate limit (e.g. `10` or `20` or whatever fits your needs best) and play around with the `new_keys_appear` property (see above).
+
+![](screenshot-set-line-limit.png)
 
 
 ## Installation
@@ -18,11 +33,6 @@ Just hit the plus button to add a new child node to your scene and search for `S
 3. There's no 3, that's it.
 
 See also [&rarr; installation instructions for Godot plugins](https://docs.godotengine.org/en/stable/tutorials/plugins/editor/installing_plugins.html) in the official docs.
-
-
-## Pro tip
-
-After adding the `ScreencastKeys` node to your scene set the `max_lines_visible` property to some appropriate limit (e.g. `10` or `20` or whatever fits your needs best) and play around with the `new_keys_appear` property.
 
 
 ## License
