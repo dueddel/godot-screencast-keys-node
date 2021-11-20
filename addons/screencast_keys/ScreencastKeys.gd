@@ -28,7 +28,9 @@ func update_alignment():
 		valign = VALIGN_CENTER
 
 
-func _unhandled_key_input(key: InputEventKey) -> void:
+func _input(event: InputEvent) -> void:
+	var key = event as InputEventKey
+
 	if key and key.pressed:
 		add_key_event(key)
 
