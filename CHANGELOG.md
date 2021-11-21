@@ -21,5 +21,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Initial release
 
 
-[Unreleased]: https://github.com/dueddel/godot-screencast-keys-node/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/dueddel/godot-screencast-keys-node/compare/master...develop
 [1.0.0]: https://github.com/dueddel/godot-screencast-keys-node/releases/tag/1.0.0
