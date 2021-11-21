@@ -4,6 +4,8 @@ extends Label
 enum Appearance {AT_THE_TOP, AT_THE_BOTTOM, AT_THE_LEFT, AT_THE_RIGHT}
 export(Appearance) var new_keys_appear: int setget _set_new_keys_appear
 
+enum Scancode {NORMAL, NORMAL_WITH_MODIFIERS, PHYSICAL, PHYSICAL_WITH_MODIFIERS}
+export(Scancode) var scancode_mode: int
 
 var pressed_keys := PoolStringArray()
 var last_key_scancode: int
@@ -36,7 +38,7 @@ func _input(event: InputEvent) -> void:
 
 
 func add_key_event(key: InputEventKey) -> void:
-	var key_scancode := key.scancode
+	var key_scancode := get_key_scancode(key)
 
 	# update/reset counter for pressed key
 	if last_key_scancode == key_scancode:
@@ -64,6 +66,21 @@ func add_key_event(key: InputEventKey) -> void:
 
 	# keep pressed key in mind
 	last_key_scancode = key_scancode
+
+
+func get_key_scancode(key: InputEventKey) -> int:
+	match scancode_mode:
+		Scancode.NORMAL:
+			return key.scancode
+		Scancode.NORMAL_WITH_MODIFIERS:
+			return key.get_scancode_with_modifiers()
+		Scancode.PHYSICAL:
+			return key.physical_scancode
+		Scancode.PHYSICAL_WITH_MODIFIERS:
+			return key.get_physical_scancode_with_modifiers()
+
+	push_error("Invalid scancode_mode %s" % scancode_mode)
+	return 0
 
 
 func trim_from_start() -> void:
